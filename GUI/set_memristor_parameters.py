@@ -5,7 +5,6 @@ Created on Mon Mar 18 18:54:20 2019
 
 @author: abhigyan
 """
-import sys
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -24,14 +23,21 @@ class set_memristor_parameters(QMainWindow):
         self.setWindowTitle('Memristor Parameters')
         self.setWindowIcon(QIcon('memristor_icon.ico'))
         
+        #Sets backgorund Image
         backgroundImage =  QImage('memristor1.jpg')
         backgroundScaledImage = backgroundImage.scaled(QSize(self.windowLength,
                                                              self.windowBreadth))
         palette = QPalette()
         palette.setBrush(10, QBrush(backgroundScaledImage))                     
         self.setPalette(palette)
-        self.show()
+        
+        #Sets Fonts 
+        self.labelFont = QFont("Arial", 13, QFont.Bold)
+        self.buttonFont = QFont('Times', 13)
+        
         self.home()
+        self.show()
+        
      
     #Create the homescreen    
     def home(self):
@@ -44,7 +50,6 @@ class set_memristor_parameters(QMainWindow):
         self.titleFont.setUnderline(True)
         self.titleLabel.setFont(self.titleFont)
         self.titleLabel.setGeometry(QRect(self.windowLength/2 - 120, 10, 500, 50))
-        self.titleLabel.show()
         
         #Device numbers title
         self.DeviceLabel = QLabel(self)
@@ -53,61 +58,43 @@ class set_memristor_parameters(QMainWindow):
         self.DeviceLabel.setStyleSheet('QLabel{color:blue}')
         self.DeviceLabel.setFont(self.DeviceLabelFont)
         self.DeviceLabel.setGeometry(QRect(35, 60, 100, 50))
-        self.DeviceLabel.show()
         
         
         #Parameter labels
         self.DLabel = QLabel(self)
         self.DLabel.setText('D (nm):')
-        self.DLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.DLabel.setFont(self.DLabelFont)
+        self.DLabel.setFont(self.labelFont)
         self.DLabel.setGeometry(QRect(55, 100, 70, 50))
-        self.DLabel.show()
         
         self.RoNLabel = QLabel(self)
         self.RoNLabel.setText('R_on (\u03A9):')
-        self.RoNLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.RoNLabel.setFont(self.RoNLabelFont)
+        self.RoNLabel.setFont(self.labelFont)
         self.RoNLabel.setGeometry(QRect(37, 140, 90, 50))
-        self.RoNLabel.show()
         
         self.RoFFLabel = QLabel(self)
         self.RoFFLabel.setText('R_off (\u03A9):')
-        self.RoFFLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.RoFFLabel.setFont(self.RoFFLabelFont)
+        self.RoFFLabel.setFont(self.labelFont)
         self.RoFFLabel.setGeometry(QRect(36, 180, 90, 50))
-        self.RoFFLabel.show()
         
         self.WLabel = QLabel(self)
         self.WLabel.setText('W_0 (nm):')
-        self.WLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.WLabel.setFont(self.WLabelFont)
-        self.WLabel.setGeometry(QRect(33, 220, 90, 50))
-        self.WLabel.show()
-        
+        self.WLabel.setFont(self.labelFont)
+        self.WLabel.setGeometry(QRect(33, 220, 90, 50))        
         
         self.mobLabel = QLabel(self)
         self.mobLabel.setText('Mobility (\u03BC):')
-        self.mobLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.mobLabel.setFont(self.WLabelFont)
-        self.mobLabel.setGeometry(QRect(19, 260, 100, 50))
-        self.mobLabel.show()
-        
+        self.mobLabel.setFont(self.labelFont)
+        self.mobLabel.setGeometry(QRect(19, 260, 100, 50))        
         
         self.polLabel = QLabel(self)
         self.polLabel.setText('Polarity (\u03B7):')
-        self.polLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.polLabel.setFont(self.polLabelFont)
-        self.polLabel.setGeometry(QRect(22, 300, 100, 50))
-        self.polLabel.show()
-        
+        self.polLabel.setFont(self.labelFont)
+        self.polLabel.setGeometry(QRect(22, 300, 100, 50))        
         
         self.typeLabel = QLabel(self)
         self.typeLabel.setText('Type:')
-        self.typeLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.typeLabel.setFont(self.typeLabelFont)
+        self.typeLabel.setFont(self.labelFont)
         self.typeLabel.setGeometry(QRect(73, 340, 100, 50))
-        self.typeLabel.show()
         
         
         #Stores widgets to take in parameters
@@ -129,52 +116,44 @@ class set_memristor_parameters(QMainWindow):
             numberLabel.setStyleSheet('QLabel{color:blue}')
             numberLabel.setFont(self.DeviceLabelFont)
             numberLabel.setGeometry(QRect(75 + (1+i)*120, 62, 50, 50))
-            numberLabel.show()
-            numberLabel.show()
             
             
             DVFBox = QLineEdit(self)
             DVFBox.move(55 + (1+i)*120, 112)
             DVFBox.resize(60,25)
-            DVFBox.show()
             self.DValueFields.append(DVFBox)
             
             R_oNBox = QLineEdit(self)
             R_oNBox.move(55 + (1+i)*120, 152)
             R_oNBox.resize(60, 25)
-            R_oNBox.show()
             self.R_onValueFields.append(R_oNBox)
             
             R_offBox = QLineEdit(self)
             R_offBox.move(55 + (1+i)*120, 192)
             R_offBox.resize(60,25)
-            R_offBox.show()
             self.R_offValueFields.append(R_offBox)
             
             W_0Box = QLineEdit(self)
             W_0Box.move(55 + (1+i)*120, 232)
             W_0Box.resize(60,25)
-            W_0Box.show()
             self.W_0ValueFields.append(W_0Box)
             
             mobilityBox = QLineEdit(self)
             mobilityBox.move(55 + (1+i)*120, 272)
             mobilityBox.resize(60,25)
-            mobilityBox.show()
             self.mobilityValueFields.append(mobilityBox)
             
             polarityBox = QLineEdit(self)
             polarityBox.move(55 + (1+i)*120, 312)
             polarityBox.resize(60,25)
-            polarityBox.show()
             self.polarityValueFields.append(polarityBox)
             
             comboBox = QComboBox(self)
             comboBox.addItem('Ideal')
             #comboBox3.addItem('Strukov')
-            comboBox.addItem('Prodromakis')
+            #comboBox.addItem('Prodromakis')
+            #comboBox.addItem('Biolek')
             comboBox.move(55 + (1+i)*120, 353)
-            comboBox.show()
             comboBox.resize(80,25)
             self.memristorTypeValueFields.append(comboBox)
             
@@ -186,7 +165,6 @@ class set_memristor_parameters(QMainWindow):
         self.OKButton.setStyleSheet('QPushButton {color: darkgreen;}')
         self.OKButtonFont = QFont('Times', 13)
         self.OKButton.setFont(self.OKButtonFont)
-        self.OKButton.show()
         self.OKButton.clicked.connect(self.readParameters)
         
         self.cancelButton = QPushButton('Cancel', self)
@@ -196,7 +174,6 @@ class set_memristor_parameters(QMainWindow):
         self.cancelButton.setStyleSheet('QPushButton {color: darkgreen;}')
         self.cancelButtonFont = QFont('Times', 13)
         self.cancelButton.setFont(self.cancelButtonFont)
-        self.cancelButton.show()
         self.cancelButton.clicked.connect(self.close)
         
     
