@@ -62,9 +62,22 @@ class memristor_GUI(QMainWindow):
         self.setGeometry(200, 200, self.windowLength, self.windowBreadth)
         self.setWindowTitle('Memristor Simulation')
         self.setWindowIcon(QIcon('memristor_icon.ico'))
+        
+        #Set default buttons pressed to False
         self.setMemristorParametersOKButtonClicked = False
         self.setWaveformsOKButtonClicked = False
         
+        #Set Fontstyles
+        self.titleFont = QFont("Times", 22, QFont.Bold)
+        self.titleFont.setUnderline(True)
+        self.writingFont = QFont("Calibri", 15)
+        self.otherWritingFont = QFont("Arial", 13)
+        self.buttonFont = QFont('Times', 13)
+        
+        #Used for small question icon
+        self.pixmap = QPixmap('question1.png')
+        
+        #Draw background Image and the home screen
         self.drawBackgroundImage()
         self.home()
         self.show()
@@ -77,7 +90,6 @@ class memristor_GUI(QMainWindow):
         palette = QPalette()
         palette.setBrush(10, QBrush(backgroundScaledImage))                     
         self.setPalette(palette)
-        #self.show()
         
     
     #Draws the homescreen    
@@ -86,24 +98,19 @@ class memristor_GUI(QMainWindow):
         #Set home window Title at top
         self.titleLabel = QLabel(self)
         self.titleLabel.setText('Memristor Simulation')
-        self.titleFont = QFont("Times", 22, QFont.Bold)
         self.titleLabel.setStyleSheet('QLabel{color:purple}')
-        self.titleFont.setUnderline(True)
         self.titleLabel.setFont(self.titleFont)
         self.titleLabel.setGeometry(QRect(self.windowLength/2 - 150, 10, 500, 50))
-        self.titleLabel.show()
         
         
         #Create text box for number of Memristors to be simulated
         self.memristorLabel = QLabel(self)
         self.memristorLabel.setText('Memristors: ')
-        self.memristorLabelFont = QFont("Calisto", 15)
-        self.memristorLabel.setFont(self.memristorLabelFont)
+        self.memristorLabel.setFont(self.writingFont)
         self.memristorLabel.setGeometry(QRect(30, 75, 120, 50))
         
         self.memristorQLabel = QLabel(self)
-        pixmap = QPixmap('question1.png')
-        self.memristorQLabel.setPixmap(pixmap)
+        self.memristorQLabel.setPixmap(self.pixmap)
         self.memristorQLabel.setToolTip('Enter the number of Memristors \nyou' +
                                          ' want to simulate. Maximum = 10')
         self.memristorQLabel.move(370,85)
@@ -111,9 +118,6 @@ class memristor_GUI(QMainWindow):
         self.memristorBox = QLineEdit(self)
         self.memristorBox.move(305, 88)
         self.memristorBox.resize(60,25)
-        self.memristorLabel.show()
-        #self.memristorHint.show()
-        self.memristorBox.show()
         
         
         #Create Change parameters button to change default Memristor parameters
@@ -123,8 +127,7 @@ class memristor_GUI(QMainWindow):
         self.changeParamButton.clicked.connect(self.changeDefaultParameters)
         
         self.changeParamQLabel = QLabel(self)
-        pixmap = QPixmap('question1.png')
-        self.changeParamQLabel.setPixmap(pixmap)
+        self.changeParamQLabel.setPixmap(self.pixmap)
         self.changeParamQLabel.setToolTip('Change Default Parameters')
         self.changeParamQLabel.move(815,402)
         
@@ -132,14 +135,11 @@ class memristor_GUI(QMainWindow):
         #Create text box for Sampling Frequency of the simulation
         self.samplingFrequencyLabel = QLabel(self)
         self.samplingFrequencyLabel.setText('Sampling Frequency:')
-        self.samplingFrequencyLabelFont = QFont("Calibri", 15)
-        self.samplingFrequencyLabel.setFont(self.samplingFrequencyLabelFont)
+        self.samplingFrequencyLabel.setFont(self.writingFont)
         self.samplingFrequencyLabel.setGeometry(QRect(30, 125, 220, 50))
-        self.samplingFrequencyLabel.show()
         
         self.samplingFrequencyQLabel = QLabel(self)
-        pixmap = QPixmap('question1.png')
-        self.samplingFrequencyQLabel.setPixmap(pixmap)
+        self.samplingFrequencyQLabel.setPixmap(self.pixmap)
         self.samplingFrequencyQLabel.setToolTip(' Sampling Frequency for \n output waveforms. Higher\n'+
                                                 ' Frequency gives better \n results but require more \n'+
                                                 ' time to compute')
@@ -157,10 +157,8 @@ class memristor_GUI(QMainWindow):
         #Create drop down lists for values to be plotted
         self.valueLabel = QLabel(self)
         self.valueLabel.setText('Plot Values: ')
-        self.valueLabelFont = QFont("Calibri", 15)
-        self.valueLabel.setFont(self.valueLabelFont)
+        self.valueLabel.setFont(self.writingFont)
         self.valueLabel.setGeometry(QRect(30, 177, 220, 50))
-        self.valueLabel.show()
         
         self.comboBox1 = QComboBox(self)
         self.comboBox1.addItem('Voltage')
@@ -176,7 +174,6 @@ class memristor_GUI(QMainWindow):
         self.vsLabelFont = QFont("Calibri", 12)
         self.vsLabel.setFont(self.vsLabelFont)
         self.vsLabel.setGeometry(QRect(420, 177, 80, 50))
-        self.vsLabel.show()
         
         self.comboBox2 = QComboBox(self)
         self.comboBox2.addItem('Current')
@@ -188,8 +185,7 @@ class memristor_GUI(QMainWindow):
         self.comboBox2.move(455, 188)
         
         self.valueQLabel = QLabel(self)
-        pixmap = QPixmap('question1.png')
-        self.valueQLabel.setPixmap(pixmap)
+        self.valueQLabel.setPixmap(self.pixmap)
         self.valueQLabel.setToolTip(' Values to be plotted. \n 1st Argument will \n' +
                                     ' be on the x-axis and \n 2nd argument on \n y-axis')
         self.valueQLabel.move(563,185)
@@ -198,17 +194,14 @@ class memristor_GUI(QMainWindow):
         #Display On same plot checkbox?
         self.dispSamePlotLabel = QLabel(self)
         self.dispSamePlotLabel.setText('Display on Same Plot:')
-        self.dispSamePlotLabelFont = QFont("Arial", 13)
-        self.dispSamePlotLabel.setFont(self.dispSamePlotLabelFont)
+        self.dispSamePlotLabel.setFont(self.otherWritingFont)
         self.dispSamePlotLabel.setGeometry(QRect(30, 257 + 40, 220, 50))
         
         self.dispSamePlotCheck = QCheckBox(self)
         self.dispSamePlotCheck.move(220, 267 + 40)
-        self.dispSamePlotLabel.show()
         
         self.dispSamePlotQLabel = QLabel(self)
-        pixmap1 = QPixmap('question1.png')
-        self.dispSamePlotQLabel.setPixmap(pixmap1)
+        self.dispSamePlotQLabel.setPixmap(self.pixmap)
         self.dispSamePlotQLabel.setToolTip(' Display all the output \n Waveforms in the' + 
                                            ' same plot')
         self.dispSamePlotQLabel.move(237,307)
@@ -216,18 +209,14 @@ class memristor_GUI(QMainWindow):
         #Display Waveform checkbox?
         self.dispWavePlotLabel = QLabel(self)
         self.dispWavePlotLabel.setText('Display Waveform Now:')
-        self.dispWavePlotLabelFont = QFont("Arial", 13)
-        self.dispWavePlotLabel.setFont(self.dispWavePlotLabelFont)
+        self.dispWavePlotLabel.setFont(self.otherWritingFont)
         self.dispWavePlotLabel.setGeometry(QRect(265, 257 + 40, 220, 50))
-        self.dispWavePlotLabel.show()
         
         self.dispWavePlotCheck = QCheckBox(self)
         self.dispWavePlotCheck.move(453, 267 + 40)
-        self.dispWavePlotLabel.show()
         
         self.dispWaveQLabel = QLabel(self)
-        pixmap = QPixmap('question1.png')
-        self.dispWaveQLabel.setPixmap(pixmap)
+        self.dispWaveQLabel.setPixmap(self.pixmap)
         self.dispWaveQLabel.setToolTip(' Show Waveforms now?')
         self.dispWaveQLabel.move(470,307)
         
@@ -235,17 +224,14 @@ class memristor_GUI(QMainWindow):
         #Save Waveform checkbox?
         self.savePlotLabel = QLabel(self)
         self.savePlotLabel.setText('Save Waveform:')
-        self.savePlotLabelFont = QFont("Arial", 13)
-        self.savePlotLabel.setFont(self.savePlotLabelFont)
+        self.savePlotLabel.setFont(self.otherWritingFont)
         self.savePlotLabel.setGeometry(QRect(30, 297 + 40, 220, 50))
         
         self.savePlotCheck = QCheckBox(self)
         self.savePlotCheck.move(220, 307 + 40)
-        self.savePlotLabel.show()
         
         self.savePlotQLabel = QLabel(self)
-        pixmap1 = QPixmap('question1.png')
-        self.savePlotQLabel.setPixmap(pixmap1)
+        self.savePlotQLabel.setPixmap(self.pixmap)
         self.savePlotQLabel.setToolTip(' Save the plots?')
         self.savePlotQLabel.move(237,347)
         
@@ -253,8 +239,7 @@ class memristor_GUI(QMainWindow):
         #Dropdown list File Extension for saving the waveform
         self.fileExtPlotLabel = QLabel(self)
         self.fileExtPlotLabel.setText('File Extension:')
-        self.fileExtPlotLabelFont = QFont("Arial", 13)
-        self.fileExtPlotLabel.setFont(self.dispWavePlotLabelFont)
+        self.fileExtPlotLabel.setFont(self.otherWritingFont)
         self.fileExtPlotLabel.setGeometry(QRect(265, 297 + 40, 220 + 40, 50))
         
         self.comboBox3 = QComboBox(self)
@@ -265,8 +250,7 @@ class memristor_GUI(QMainWindow):
         self.comboBox3.resize(60,30)
         
         self.savePlotQLabel = QLabel(self)
-        pixmap1 = QPixmap('question1.png')
-        self.savePlotQLabel.setPixmap(pixmap1)
+        self.savePlotQLabel.setPixmap(self.pixmap)
         self.savePlotQLabel.setToolTip(' Extension of file for \n saving the plots.')
         self.savePlotQLabel.move(520,347)
         
@@ -274,8 +258,7 @@ class memristor_GUI(QMainWindow):
         #Save path for saving the waveform
         self.savePathLabel = QLabel(self)
         self.savePathLabel.setText('Save Path:')
-        self.savePathLabelFont = QFont("Arial", 13)
-        self.savePathLabel.setFont(self.savePathLabelFont)
+        self.savePathLabel.setFont(self.otherWritingFont)
         self.savePathLabel.setGeometry(QRect(30, 342 + 40, 220, 50))
         
         self.savePathBox = QLineEdit(self)
@@ -283,8 +266,7 @@ class memristor_GUI(QMainWindow):
         self.savePathBox.resize(400,29)
         
         self.savePathQLabel = QLabel(self)
-        pixmap1 = QPixmap('question1.png')
-        self.savePathQLabel.setPixmap(pixmap1)
+        self.savePathQLabel.setPixmap(self.pixmap)
         self.savePathQLabel.setToolTip(' Save path for the plots.')
         self.savePathQLabel.move(550,392)
         
@@ -292,8 +274,7 @@ class memristor_GUI(QMainWindow):
         #DPI
         self.dpiLabel = QLabel(self)
         self.dpiLabel.setText('DPI:')
-        self.dpiLabelFont = QFont("Arial", 13)
-        self.dpiLabel.setFont(self.dpiLabelFont)
+        self.dpiLabel.setFont(self.otherWritingFont)
         self.dpiLabel.setGeometry(QRect(30, 382 + 40, 220, 50))
         
         self.dpiBox = QLineEdit(self)
@@ -301,8 +282,7 @@ class memristor_GUI(QMainWindow):
         self.dpiBox.resize(60,25)
         
         self.dpiQLabel = QLabel(self)
-        pixmap1 = QPixmap('question1.png')
-        self.dpiQLabel.setPixmap(pixmap1)
+        self.dpiQLabel.setPixmap(self.pixmap)
         self.dpiQLabel.setToolTip(' Save path for the plots.')
         self.dpiQLabel.move(210,432)
         
@@ -313,13 +293,11 @@ class memristor_GUI(QMainWindow):
         self.setParamButton.move(240, 500)
         
         self.setParamButton.setStyleSheet('QPushButton {background-color: #A3C1DA; color: darkgreen;}')
-        self.setParamButtonFont = QFont('Times', 13)
-        self.setParamButton.setFont(self.setParamButtonFont)
+        self.setParamButton.setFont(self.buttonFont)
         self.setParamButton.clicked.connect(self.setMemristorParameters)
         
         self.setParamQLabel = QLabel(self)
-        pixmap = QPixmap('question1.png')
-        self.setParamQLabel.setPixmap(pixmap)
+        self.setParamQLabel.setPixmap(self.pixmap)
         self.setParamQLabel.setToolTip(' Set parameters for all \n' +
                                        ' the Memristors')
         self.setParamQLabel.move(380,510)
@@ -331,13 +309,11 @@ class memristor_GUI(QMainWindow):
         self.setWavesButton.move(490, 500)
         
         self.setWavesButton.setStyleSheet('QPushButton {background-color: #A3C1DA; color: darkgreen;}')
-        self.setWavesButtonFont = QFont('Times', 13)
-        self.setWavesButton.setFont(self.setWavesButtonFont)
+        self.setWavesButton.setFont(self.buttonFont)
         self.setWavesButton.clicked.connect(self.setWaveforms)
         
         self.setWavesQLabel = QLabel(self)
-        pixmap = QPixmap('question1.png')
-        self.setWavesQLabel.setPixmap(pixmap)
+        self.setWavesQLabel.setPixmap(self.pixmap)
         self.setWavesQLabel.setToolTip(' Set input Waveforms \n'+
                                        ' for different Memristors')
         self.setWavesQLabel.move(630,510)
@@ -349,13 +325,11 @@ class memristor_GUI(QMainWindow):
         self.runSimButton.move(370, 570)
         
         self.runSimButton.setStyleSheet('QPushButton {background-color: #A3C1DA; color: red;}')
-        self.runSimButtonFont = QFont('Times', 13)
-        self.runSimButton.setFont(self.runSimButtonFont)
+        self.runSimButton.setFont(self.buttonFont)
         self.runSimButton.clicked.connect(self.runSimulation)
         
         self.runSimQLabel = QLabel(self)
-        pixmap = QPixmap('question1.png')
-        self.runSimQLabel.setPixmap(pixmap)
+        self.runSimQLabel.setPixmap(self.pixmap)
         self.runSimQLabel.setToolTip(' Run the simulations. \n'+
                                      ' Can take some time depending \n' +
                                      ' on comutational resources')
@@ -388,7 +362,6 @@ class memristor_GUI(QMainWindow):
         layout.addRow(QLabel("Type:"), self.memristorTypeCB) 
         layout.addRow(QLabel(), btnOk)
         self.DPGroupBox.setLayout(layout)
-        self.DPGroupBox.show()
         
         btnOk.clicked.connect(self.readAndUpdateDefaultParameters)
         
@@ -427,15 +400,12 @@ class memristor_GUI(QMainWindow):
         #Create Default Parameters
         self.useDFParamsLabel = QLabel(self)
         self.useDFParamsLabel.setText('Default Parameters:')
-        self.useDFParamsLabelFont = QFont("Calibri", 15)
-        self.useDFParamsLabelFont.setUnderline(True)
-        self.useDFParamsLabel.setFont(self.useDFParamsLabelFont)
+        #self.useDFParamsLabelFont.setUnderline(True)
+        self.useDFParamsLabel.setFont(self.writingFont)
         self.useDFParamsLabel.setGeometry(QRect(650, 75, 220, 50))
-        self.useDFParamsLabel.show()
         
         self.DFParamsQLabel = QLabel(self)
-        pixmap = QPixmap('question1.png')
-        self.DFParamsQLabel.setPixmap(pixmap)
+        self.DFParamsQLabel.setPixmap(self.pixmap)
         self.DFParamsQLabel.setToolTip('Default Parameters when \nno input is provided.')
         self.DFParamsQLabel.move(860,85)
         
@@ -444,61 +414,51 @@ class memristor_GUI(QMainWindow):
         self.DLabel.setText('D = ' + str(self.D / 10**-9) + ' nm')
         self.DLabel.setFont(self.paramFont)
         self.DLabel.setGeometry(QRect(675, 110, 220, 50))
-        self.DLabel.show()
         
         self.RoNLabel = QLabel(self)
         self.RoNLabel.setText('R_on = ' + str(self.R_on) + ' \u03A9')
         self.RoNLabel.setFont(self.paramFont)
         self.RoNLabel.setGeometry(QRect(675, 135, 220, 50))
-        self.RoNLabel.show()
         
         self.RoFFLabel = QLabel(self)
         self.RoFFLabel.setText('R_off = ' + str(self.R_off) + ' \u03A9')
         self.RoFFLabel.setFont(self.paramFont)
         self.RoFFLabel.setGeometry(QRect(675, 160, 220, 50))
-        self.RoFFLabel.show()
         
         self.WLabel = QLabel(self)
         self.WLabel.setText('W_0 = ' + str(self.W_0/10**-9) +' nm')
         self.WLabel.setFont(self.paramFont)
         self.WLabel.setGeometry(QRect(675, 185, 220, 50))
-        self.WLabel.show()
         
         self.mobilityLabel = QLabel(self)
         self.mobilityLabel.setText('Mobility (\u03BC) = '+str(self.mobility/10**-12) + ' pm/s')
         self.mobilityLabel.setFont(self.paramFont)
         self.mobilityLabel.setGeometry(QRect(675, 210, 220, 50))
-        self.mobilityLabel.show()
         
         self.polarityLabel = QLabel(self)
         self.polarityLabel.setText('Polarity (\u03B7) = ' + str(self.polarity))
         self.polarityLabel.setFont(self.paramFont)
         self.polarityLabel.setGeometry(QRect(675, 235, 220, 50))
-        self.polarityLabel.show()
         
         self.QLabel = QLabel(self)
         self.QLabel.setText('Q_0 = '+str(self.Q_0/10**-6) +' \u03BCC')
         self.QLabel.setFont(self.paramFont)
         self.QLabel.setGeometry(QRect(675, 260, 220, 50))
-        self.QLabel.show()
         
         self.R0Label = QLabel(self)
         self.R0Label.setText('R_0 = '+str(self.R_0)+' \u03A9')
         self.R0Label.setFont(self.paramFont)
         self.R0Label.setGeometry(QRect(675, 285, 220, 50))
-        self.R0Label.show()
         
         self.polarityLabel = QLabel(self)
         self.polarityLabel.setText('\u0394R = '+str(self.R_delta)+' \u03A9')
         self.polarityLabel.setFont(self.paramFont)
         self.polarityLabel.setGeometry(QRect(675, 310, 220, 50))
-        self.polarityLabel.show()
         
         self.typeLabel = QLabel(self)
         self.typeLabel.setText('Type : ' + str(self.memristorType))
         self.typeLabel.setFont(self.paramFont)
         self.typeLabel.setGeometry(QRect(675, 335, 220, 50))
-        self.typeLabel.show()
         
     
     #Reads all the values in the different fields of the home screen
@@ -525,9 +485,9 @@ class memristor_GUI(QMainWindow):
         self.preferences['y_axis'] = self.comboBox2.currentText()
         self.preferences['format'] = self.comboBox3.currentText()
         
-        self.preferences['dspc'] = self.dispSamePlotCheck.isChecked()
-        self.preferences['dwpc'] = self.dispWavePlotCheck.isChecked()
-        self.preferences['spc'] = self.savePlotCheck.isChecked()  
+        self.preferences['display_same_plot'] = self.dispSamePlotCheck.isChecked()
+        self.preferences['display_wave'] = self.dispWavePlotCheck.isChecked()
+        self.preferences['save_plot'] = self.savePlotCheck.isChecked()  
         
     
      #Calls the core function and runs all the associated methods    
@@ -561,8 +521,7 @@ class memristor_GUI(QMainWindow):
         cntrl.multiple_memristor_circuits(self.data)
                 
         
-        
-        
+           
     #Launches window to set the default paramters of the Memristor (connected to Set Paramters button)    
     def setMemristorParameters(self):
         self.readValues()
@@ -597,14 +556,12 @@ class memristor_GUI(QMainWindow):
     
     def getUserPreferences(self):
         return self.preferences
-
-
-        
+      
             
-    
-windowLength = 900
-windowBreadth = 800        
-app = 0
-app = QApplication(sys.argv)
-gui = memristor_GUI(windowLength, windowBreadth)
-sys.exit(app.exec_())
+if __name__ == '__main__':   
+    windowLength = 900
+    windowBreadth = 800        
+    app = 0
+    app = QApplication(sys.argv)
+    gui = memristor_GUI(windowLength, windowBreadth)
+    sys.exit(app.exec_())
