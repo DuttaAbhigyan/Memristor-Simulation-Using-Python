@@ -5,7 +5,6 @@ Created on Mon Mar 18 18:56:58 2019
 
 @author: abhigyan
 """
-import sys
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -25,14 +24,21 @@ class set_waveforms(QMainWindow):
         self.setWindowTitle('Input Waveforms')
         self.setWindowIcon(QIcon('memristor_icon.ico'))
         
+        #Sets backgorund Image
         backgroundImage =  QImage('memristor1.jpg')
         backgroundScaledImage = backgroundImage.scaled(QSize(self.windowLength,
                                                                  self.windowBreadth))
         palette = QPalette()
         palette.setBrush(10, QBrush(backgroundScaledImage))                     
         self.setPalette(palette)
-        self.show()
+        
+        #Sets Fonts 
+        self.labelFont = QFont("Arial", 13, QFont.Bold)
+        self.buttonFont = QFont('Times', 13)
+        
         self.home()
+        self.show()
+        
         
         
     #Create the homescreen
@@ -45,7 +51,6 @@ class set_waveforms(QMainWindow):
         self.titleFont.setUnderline(True)
         self.titleLabel.setFont(self.titleFont)
         self.titleLabel.setGeometry(QRect(self.windowLength/2 - 120, 10, 500, 50))
-        self.titleLabel.show()
         
         #Device numbers
         self.DeviceLabel = QLabel(self)
@@ -54,51 +59,38 @@ class set_waveforms(QMainWindow):
         self.DeviceLabel.setStyleSheet('QLabel{color:blue}')
         self.DeviceLabel.setFont(self.DeviceLabelFont)
         self.DeviceLabel.setGeometry(QRect(35, 60, 100, 50))
-        self.DeviceLabel.show()
         
         
         #Parameter labels
         self.typeLabel = QLabel(self)
         self.typeLabel.setText('Type:')
-        self.typeLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.typeLabel.setFont(self.typeLabelFont)
+        self.typeLabel.setFont(self.labelFont)
         self.typeLabel.setGeometry(QRect(87, 100, 70, 50))
-        self.typeLabel.show()
         
         self.amplitudeLabel = QLabel(self)
         self.amplitudeLabel.setText('Amplitude (V):')
-        self.amplitudeLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.amplitudeLabel.setFont(self.amplitudeLabelFont)
+        self.amplitudeLabel.setFont(self.labelFont)
         self.amplitudeLabel.setGeometry(QRect(15, 140, 120, 50))
-        self.amplitudeLabel.show()
         
         self.omegaLabel = QLabel(self)
         self.omegaLabel.setText('Omega (\u03C9):')
-        self.omegaLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.omegaLabel.setFont(self.omegaLabelFont)
+        self.omegaLabel.setFont(self.labelFont)
         self.omegaLabel.setGeometry(QRect(37, 180, 100, 50))
-        self.omegaLabel.show()
         
         self.pwLabel = QLabel(self)
         self.pwLabel.setText('Pulsewidth:')
-        self.pwLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.pwLabel.setFont(self.pwLabelFont)
+        self.pwLabel.setFont(self.labelFont)
         self.pwLabel.setGeometry(QRect(35, 220, 100, 50))
-        self.pwLabel.show()
         
         self.startLabel = QLabel(self)
         self.startLabel.setText('Start:')
-        self.startLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.startLabel.setFont(self.startLabelFont)
+        self.startLabel.setFont(self.labelFont)
         self.startLabel.setGeometry(QRect(85, 260, 100, 50))
-        self.startLabel.show()
         
         self.stopLabel = QLabel(self)
         self.stopLabel.setText('Stop:')
-        self.stopLabelFont = QFont("Arial", 13, QFont.Bold)
-        self.stopLabel.setFont(self.stopLabelFont)
+        self.stopLabel.setFont(self.labelFont)
         self.stopLabel.setGeometry(QRect(85, 300, 100, 50))
-        self.stopLabel.show()
         
         self.typeValueFields = []
         self.amplitudeValueFields = []
@@ -116,10 +108,7 @@ class set_waveforms(QMainWindow):
             numberLabelFont = QFont("Calibri", 14, QFont.Bold)
             numberLabel.setStyleSheet('QLabel{color:blue}')
             numberLabel.setFont(self.DeviceLabelFont)
-            numberLabel.setGeometry(QRect(75 + (1+i)*120, 62, 50, 50))
-            numberLabel.show()
-            numberLabel.show()
-            
+            numberLabel.setGeometry(QRect(75 + (1+i)*120, 62, 50, 50))            
             
             typeBox = QComboBox(self)
             typeBox.addItem('Sine')
@@ -128,38 +117,32 @@ class set_waveforms(QMainWindow):
             typeBox.addItem('Non-Uniform Amplitude Pulse')
             typeBox.addItem('Custom Pulse')
             typeBox.move(55 + (1+i)*120, 112)
-            typeBox.show()
             typeBox.resize(80,25)
             self.typeValueFields.append(typeBox)
             
             amplitudeBox = QLineEdit(self)
             amplitudeBox.move(55 + (1+i)*120, 152)
             amplitudeBox.resize(80, 25)
-            amplitudeBox.show()
             self.amplitudeValueFields.append(amplitudeBox)
             
             omegaBox = QLineEdit(self)
             omegaBox.move(55 + (1+i)*120, 192)
             omegaBox.resize(80,25)
-            omegaBox.show()
             self.omegaValueFields.append(omegaBox)
             
             pwBox = QLineEdit(self)
             pwBox.move(55 + (1+i)*120, 232)
             pwBox.resize(80,25)
-            pwBox.show()
             self.pwValueFields.append(pwBox)
             
             startBox = QLineEdit(self)
             startBox.move(55 + (1+i)*120, 272)
             startBox.resize(80,25)
-            startBox.show()
             self.startValueFields.append(startBox)
             
             stopBox = QLineEdit(self)
             stopBox.move(55 + (1+i)*120, 312)
             stopBox.resize(80,25)
-            stopBox.show()
             self.stopValueFields.append(stopBox)
             
         #Creates OK button and Cancel button   
@@ -168,9 +151,7 @@ class set_waveforms(QMainWindow):
         self.OKButton.move(self.windowLength/2 -150, 423)
         
         self.OKButton.setStyleSheet('QPushButton {color: darkgreen;}')
-        self.OKButtonFont = QFont('Times', 13)
-        self.OKButton.setFont(self.OKButtonFont)
-        self.OKButton.show()
+        self.OKButton.setFont(self.buttonFont)
         self.OKButton.clicked.connect(self.readParameters)
         
         self.cancelButton = QPushButton('Cancel', self)
@@ -178,9 +159,7 @@ class set_waveforms(QMainWindow):
         self.cancelButton.move(self.windowLength/2 , 423)
         
         self.cancelButton.setStyleSheet('QPushButton {color: darkgreen;}')
-        self.cancelButtonFont = QFont('Times', 13)
-        self.cancelButton.setFont(self.cancelButtonFont)
-        self.cancelButton.show()
+        self.cancelButton.setFont(self.buttonFont)
         self.cancelButton.clicked.connect(self.close)
         
     
@@ -233,3 +212,4 @@ class set_waveforms(QMainWindow):
     
     def getOKButton(self):
         return self.setWaveformsOKButtonClicked
+    
